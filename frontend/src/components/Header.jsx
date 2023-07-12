@@ -20,7 +20,7 @@ const Header = () => {
 					<Navbar.Toggle aria-controls='basic-navbar-nav' />
 					<Navbar.Collapse id='basic-navbar-nav'>
 						<Nav className='ms-auto'>
-							<LinkContainer to='/'>
+							<LinkContainer to='/cart'>
 								<Nav.Link>
 									<FaShoppingCart /> Cart
 									{cartItems.length > 0 && (
@@ -30,7 +30,7 @@ const Header = () => {
 									)}
 								</Nav.Link>
 							</LinkContainer>
-							<LinkContainer to='/'>
+							<LinkContainer to='/login'>
 								<Nav.Link>
 									<FaUser />
 									Sign In
