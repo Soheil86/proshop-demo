@@ -23,6 +23,7 @@ import PrivateRoute from './components/PrivateRoute'
 import PaymentPage from './pages/PaymentPage'
 import PlaceOrderPage from './pages/PlaceOrderPage'
 import OrderScreen from './pages/OrderPage'
+import ProfilePage from './pages/ProfilePage'
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -38,6 +39,7 @@ const router = createBrowserRouter(
 				<Route path='/payment' element={<PaymentPage />} />
 				<Route path='/placeorder' element={<PlaceOrderPage />} />
 				<Route path='/order/:id' element={<OrderScreen />} />
+				<Route path='/profile' element={<ProfilePage />} />
 			</Route>
 		</Route>
 	)
@@ -47,7 +49,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
 	<React.StrictMode>
 		<Provider store={store}>
-			<PayPalScriptProvider deferLoading={true} >
+			<PayPalScriptProvider deferLoading={true}>
 				<RouterProvider router={router} />
 			</PayPalScriptProvider>
 		</Provider>
