@@ -10,6 +10,7 @@ import {
 	useGetOrderDetailsQuery,
 	useGetPaypalClientIdQuery,
 	usePayOrderMutation,
+	useDeliverOrderMutation,
 } from '../slices/ordersApiSlice'
 
 const OrderPage = () => {
@@ -33,6 +34,9 @@ const OrderPage = () => {
 		isLoading: loadingPayPal,
 		error: errorPayPal,
 	} = useGetPaypalClientIdQuery()
+
+	const [deliverOrder, { isLoading: loadingDeliver }] =
+		useDeliverOrderMutation()
 
 	useEffect(() => {
 		if (!errorPayPal && !loadingPayPal && paypal.clientId) {
@@ -92,6 +96,16 @@ const OrderPage = () => {
 			})
 	}
 
+	const deliverOrderHandler = async () => {
+		try {
+			await deliverOrder(orderId)
+			refetch()
+			toast.success('Order delivered')
+		} catch (err) {
+			toast.error(err?.data?.message || err.message)
+		}
+	}
+
 	return isLoading ? (
 		<Loader />
 	) : error ? (
@@ -119,7 +133,7 @@ const OrderPage = () => {
 							</p>
 							{order.isDelivered ? (
 								<Message variant='success'>
-									Delivered on {order.deliveredAt}
+									Delivered on {order.deliveredAt?.substring(0, 10)}
 								</Message>
 							) : (
 								<Message variant='danger'>Not Delivered</Message>
@@ -133,7 +147,9 @@ const OrderPage = () => {
 								{order.paymentMethod}
 							</p>
 							{order.isPaid ? (
-								<Message variant='success'>Paid on {order.paidAt}</Message>
+								<Message variant='success'>
+									Paid on {order.paidAt?.substring(0, 10)}
+								</Message>
 							) : (
 								<Message variant='danger'>Not Paid</Message>
 							)}
@@ -233,7 +249,17 @@ const OrderPage = () => {
 							{userInfo &&
 								userInfo.isAdmin &&
 								order.isPaid &&
-								!order.isDelivered && <ListGroup.Item></ListGroup.Item>}
+								!order.isDelivered && (
+									<ListGroup.Item>
+										<Button
+											type='button'
+											className='btn btn-block'
+											onClick={deliverOrderHandler}
+										>
+											Mark As Delivered
+										</Button>
+									</ListGroup.Item>
+								)}
 						</ListGroup>
 					</Card>
 				</Col>
