@@ -1,6 +1,6 @@
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button, Row, Col } from 'react-bootstrap'
-import { FaAppStore, FaDeezer, FaEdit, FaPlus, FaTrash } from 'react-icons/fa'
+import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa'
 import { useParams } from 'react-router-dom'
 import Message from '../../components/Message'
 import Loader from '../../components/Loader'
@@ -8,7 +8,7 @@ import Loader from '../../components/Loader'
 import {
 	useGetProductsQuery,
 	//   useDeleteProductMutation,
-	//   useCreateProductMutation,
+	useCreateProductMutation,
 } from '../../slices/productsApiSlice'
 import { toast } from 'react-toastify'
 
@@ -31,14 +31,14 @@ const ProductListPage = () => {
 		}
 	}
 
-	//   const [createProduct, { isLoading: loadingCreate }] =
-	//     useCreateProductMutation();
+	const [createProduct, { isLoading: loadingCreate }] =
+		useCreateProductMutation()
 
 	const createProductHandler = async () => {
 		if (window.confirm('Are you sure you want to create a new product?')) {
 			try {
-				// await createProduct()
-				// refetch()
+				 await createProduct()
+				 refetch()
 			} catch (err) {
 				toast.error(err?.data?.message || err.error)
 			}
