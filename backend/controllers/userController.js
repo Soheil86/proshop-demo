@@ -1,5 +1,5 @@
 import asyncHandler from '../middleware/asyncHandler.js'
-import generateToken from '../utils/generatetoken.js'
+import generateToken from '../utils/generateToken.js'
 import User from '../models/userModel.js'
 
 // @desc    Auth user & get token
