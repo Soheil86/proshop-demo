@@ -7,6 +7,7 @@ import Message from '../components/Message'
 import Paginate from '../components/Paginate'
 import ProductCarousel from '../components/ProductCarousel'
 
+
 const HomePage = () => {
 	const { pageNumber, keyword } = useParams()
 	const { data, isLoading, error } = useGetProductsQuery({
@@ -30,7 +31,8 @@ const HomePage = () => {
 					{error?.data?.message || error.error}
 				</Message>
 			) : (
-				<>
+						<>
+						
 					<h1>Latest Products</h1>
 					<Row>
 						{data.products.map((product) => (

@@ -31,7 +31,7 @@ const UserEditPage = () => {
 	const submitHandler = async (e) => {
 		e.preventDefault()
 		try {
-			const test = await updateUser({ userId, name, email, isAdmin })
+			await updateUser({ userId, name, email, isAdmin })
 			toast.success('user updated successfully')
 			refetch()
 			navigate('/admin/userlist')
