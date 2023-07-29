@@ -122,7 +122,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const getUsers = asyncHandler(async (req, res) => {
 	const users = await User.find({})
-	res.json(users)
+	res.status(200).json(users)
 })
 
 // @desc    Delete user
@@ -170,12 +170,13 @@ const updateUser = asyncHandler(async (req, res) => {
 
 		const updatedUser = await user.save()
 
-		res.json({
+		res.status(200).json({
 			_id: updatedUser._id,
 			name: updatedUser.name,
 			email: updatedUser.email,
 			isAdmin: updatedUser.isAdmin,
 		})
+		console.log(updateUser)
 	} else {
 		res.status(404)
 		throw new Error('User not found')
