@@ -7,7 +7,7 @@ import Loader from '../../components/Loader'
 // import Paginate from '../../components/Paginate'
 import {
 	useGetProductsQuery,
-	//   useDeleteProductMutation,
+	useDeleteProductMutation,
 	useCreateProductMutation,
 } from '../../slices/productsApiSlice'
 import { toast } from 'react-toastify'
@@ -17,14 +17,15 @@ const ProductListPage = () => {
 
 	const { data: products, isLoading, error, refetch } = useGetProductsQuery({})
 
-	//   const [deleteProduct, { isLoading: loadingDelete }] =
-	//     useDeleteProductMutation();
+	const [deleteProduct, { isLoading: loadingDelete }] =
+		useDeleteProductMutation()
 
 	const deleteHandler = async (id) => {
-		if (window.confirm('Are you sure')) {
+		if (window.confirm('Are you sure?')) {
 			try {
-				// await deleteProduct(id)
-				// refetch()
+				await deleteProduct(id)
+				toast.success('Product deleted')
+				refetch()
 			} catch (err) {
 				toast.error(err?.data?.message || err.error)
 			}
@@ -37,8 +38,8 @@ const ProductListPage = () => {
 	const createProductHandler = async () => {
 		if (window.confirm('Are you sure you want to create a new product?')) {
 			try {
-				 await createProduct()
-				 refetch()
+				await createProduct()
+				refetch()
 			} catch (err) {
 				toast.error(err?.data?.message || err.error)
 			}
@@ -58,8 +59,8 @@ const ProductListPage = () => {
 				</Col>
 			</Row>
 
-			{/* {loadingCreate && <Loader />}
-      {loadingDelete && <Loader />} */}
+			{loadingCreate && <Loader />}
+			{loadingDelete && <Loader />}
 			{isLoading ? (
 				<Loader />
 			) : error ? (
